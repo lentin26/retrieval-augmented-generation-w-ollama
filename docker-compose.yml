@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.ml.enabled=false
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  ollama:
+    image: ollama/ollama:latest  # Official Ollama image
+    container_name: ollama
+    ports:
+      - "11434:11434"  # Default Ollama API port
+    environment:
+      - OLLAMA_MODEL=gemma:2b  # Specify the model you want to use
+    # command: ["sh", "-c", "ollama pull gemma:2b && ollama serve"]
+
+  # api_gateway:
+  #   image: <your-api-gateway-image>  # Optional, for an app API layer
+  #   container_name: api_gateway
+  #   environment:
+  #     - OLLAMA_API_URL=http://ollama:11434
+  #     - ES_HOST=http://elasticsearch:9200
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - elasticsearch
+  #     - ollama
