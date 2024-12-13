@@ -20,15 +20,3 @@ services:
     environment:
       - OLLAMA_MODEL=gemma:2b  # Specify the model you want to use
     # command: ["sh", "-c", "ollama pull gemma:2b && ollama serve"]
-
-  # api_gateway:
-  #   image: <your-api-gateway-image>  # Optional, for an app API layer
-  #   container_name: api_gateway
-  #   environment:
-  #     - OLLAMA_API_URL=http://ollama:11434
-  #     - ES_HOST=http://elasticsearch:9200
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - elasticsearch
-  #     - ollama
